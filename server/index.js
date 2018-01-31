@@ -7,12 +7,17 @@ const r = path => resolve(__dirname, path)
 //默认的启动地址和端口
 const host = process.env.HOST || 'localhost'
 const port = process.env.PORT || 8500
-
+const isDev = process.env.NODE_ENV === 'development'
 //服务器类
+export default class Server {
   constructor() {
     this.app = new Koa()
-    //./middlewares 为中间件文件
-    this.useMiddlware(this.app)(require('./middlewares'))
+    //./middlewares 为中间件文件夹
+    if(isDev){
+      this.useMiddlware(this.app)(require('./middlewares/dev'))
+    }else{
+      this.useMiddlware(this.app)(require('./middlewares/pro'))
+    }
   }
   //引用中间件
   useMiddlware(app) {
@@ -20,9 +25,10 @@ const port = process.env.PORT || 8500
   }
   //服务启动
   start() {
-    this.app.use(ctx => {
-      ctx.status = 200
-      ctx.body = 'hello koa'
+    this.app.use(async ctx => {
+      await ctx.render('index', {
+        root: 'hello, koa'
+      })
     })
     this.app.listen(port, host)
     console.log(`Server is listening on ${host}:${port}`)
