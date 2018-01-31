@@ -8,20 +8,16 @@ const htmlWebpackPlugin = require('html-webpack-plugin')
 let clientConfig, serverConfig
 
 
-// function getExternals() {
-//   return fs.readdirSync(r('../node_modules'))
-//     .filter(filename => !filename.includes('.bin'))
-//     .reduce((externals, filename) => {
-//       externals[filename] = `commonjs ${filename}`
-//
-//       return externals
-//     }, {})
-// }
+function getExternals() {
+  return fs.readdirSync(r('../node_modules'))
+    .filter(filename => !filename.includes('.bin'))
+    .reduce((externals, filename) => {
+      externals[filename] = `commonjs ${filename}`
 
-const nodeModules = fs.readdirSync('node_modules')
-  .filter(function (i) {
-    return ['.bin', '.npminstall'].indexOf(i) === -1
-  })
+      return externals
+    }, {})
+}
+
 
 clientConfig = {
   entry: {
@@ -37,6 +33,9 @@ clientConfig = {
       test: /\.js$/,
       include: [r('../client')],
       loader: 'babel-loader',
+      options:{
+        presets: ["env", "react", "stage-0", "stage-3"]
+      }
     }]
   },
   plugins: [
@@ -46,7 +45,8 @@ clientConfig = {
     new htmlWebpackPlugin({
       template: r('../client/template.html'),
       filename: 'index.html'
-    })
+    }),
+    new webpack.optimize.UglifyJsPlugin()
   ]
 }
 
@@ -67,29 +67,18 @@ serverConfig = {
     rules: [{
       test: /\.js$/,
       exclude: /node_modules/,
-      loader: 'babel-loader'
+      loader: 'babel-loader',
+      options:{
+        presets: [["env",{"targets":{"node":"current"}}],'react','stage-0','stage-3']
+      }
     }]
   },
-  externals: [
-    function(context, request, callback) {
-      var pathStart = request.split('/')[0]
-      if (pathStart && (pathStart[0] === '!') || nodeModules.indexOf(pathStart) >= 0 && request !== 'webpack/hot/signal.js') {
-        return callback(null, 'commonjs ' + request)
-      }
-      callback()
-    }
-  ],
+  externals: getExternals(),
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      },
-      comments: false
-    }),
   ]
 }
 

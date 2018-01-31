@@ -1,7 +1,7 @@
 import {resolve} from 'path'
 import koaBody from 'koa-bodyparser'
 import views from 'koa-views'
-import staticServer from 'koa-static'
+import staticServer from 'koa-static-server'
 
 const r = path => resolve(__dirname, path)
 //development middlewares
@@ -21,5 +21,8 @@ export const addViews = (app) => {
 
 //静态资源服务器
 export const addStaticServer = (app) => {
-  app.use('/public/',staticServer(r('../../dist/public')))
+  app.use(staticServer({
+    rootDir: r('../../dist/public'),
+    rootPath:'/public'
+  }))
 }
