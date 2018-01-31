@@ -26,12 +26,6 @@ export default class Server {
   }
   //服务启动
   start() {
-    // this.app.use(async ctx => {
-    //   console.log(111)
-    //   await ctx.render('index', {
-    //     root: 'hello, koa'
-    //   })
-    // })
     this.app.use(serverRender)
     this.app.listen(port, host)
     console.log(`Server is listening on ${host}:${port}`)

@@ -33,7 +33,7 @@ clientConfig = {
       test: /\.js$/,
       include: [r('../client')],
       loader: 'babel-loader',
-      options:{
+      options: {
         presets: ["env", "react", "stage-0", "stage-3"]
       }
     }]
@@ -43,7 +43,7 @@ clientConfig = {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     }),
     new htmlWebpackPlugin({
-      template: r('../client/template.html'),
+      template: '!!ejs-compiled-loader!' + r('../client/template.ejs'),
       filename: 'index.html'
     }),
     new webpack.optimize.UglifyJsPlugin()
@@ -68,8 +68,14 @@ serverConfig = {
       test: /\.js$/,
       exclude: /node_modules/,
       loader: 'babel-loader',
-      options:{
-        presets: [["env",{"targets":{"node":"current"}}],'react','stage-0','stage-3']
+      options: {
+        presets: [
+          ["env", {
+            "targets": {
+              "node": "current"
+            }
+          }], 'react', 'stage-0', 'stage-3'
+        ]
       }
     }]
   },
