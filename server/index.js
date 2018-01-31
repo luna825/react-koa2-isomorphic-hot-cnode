@@ -2,6 +2,7 @@ import Koa from 'koa'
 import {resolve} from 'path'
 import R from 'ramda'
 
+import serverRender from './middlewares/serverRender'
 //绝对路径函数
 const r = path => resolve(__dirname, path)
 //默认的启动地址和端口
@@ -25,11 +26,13 @@ export default class Server {
   }
   //服务启动
   start() {
-    this.app.use(async ctx => {
-      await ctx.render('index', {
-        root: 'hello, koa'
-      })
-    })
+    // this.app.use(async ctx => {
+    //   console.log(111)
+    //   await ctx.render('index', {
+    //     root: 'hello, koa'
+    //   })
+    // })
+    this.app.use(serverRender)
     this.app.listen(port, host)
     console.log(`Server is listening on ${host}:${port}`)
   }
