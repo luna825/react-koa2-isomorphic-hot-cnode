@@ -2,7 +2,7 @@
   "env":{
     "development": {
       "presets": ["env", "react", "stage-0", "stage-3"],
-      "plugins": ["react-hot-loader/babel"]
+      "plugins": ["react-hot-loader/babel","transform-decorators-legacy"]
     }
   }
 }

@@ -11,6 +11,9 @@
 <body>
   <div id="root"><%- root %></div>
 </body>
+<script type="text/javascript">
+  window.REDUX_STATE = <%- JSON.stringify(state) %>
+</script>
 <script type="text/javascript" src='/public/bundle.js'>
 </script>
 

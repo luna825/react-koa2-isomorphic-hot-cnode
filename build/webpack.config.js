@@ -34,7 +34,8 @@ clientConfig = {
       include: [r('../client')],
       loader: 'babel-loader',
       options: {
-        presets: ["env", "react", "stage-0", "stage-3"]
+        presets: ["env", "react", "stage-0", "stage-3"],
+        plugins: ['transform-decorators-legacy']
       }
     }]
   },
@@ -75,7 +76,8 @@ serverConfig = {
               "node": "current"
             }
           }], 'react', 'stage-0', 'stage-3'
-        ]
+        ],
+        plugins: ['transform-decorators-legacy']
       }
     }]
   },
