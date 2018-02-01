@@ -12,6 +12,7 @@ const r = path => resolve(__dirname, path)
 const config = require('../../build/webpack.config.dev')
 const compiler = webpack(config)
 
+
 //ejs 模版
 export const addViews = (app) => {
   app.use(views(r('../../views/dev'), {

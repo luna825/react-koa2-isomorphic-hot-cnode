@@ -27,7 +27,8 @@ export default async function(ctx, next) {
     ctx.status=200
     await ctx.render('index', {
       root: html,
-      state: store.getState()
+      state: store.getState(),
+      title: 'M-Node'
     })
   }
 }

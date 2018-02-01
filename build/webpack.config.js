@@ -7,10 +7,9 @@ const webpack = require('webpack')
 const htmlWebpackPlugin = require('html-webpack-plugin')
 // Create multiple instances
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const extractCSS = new ExtractTextPlugin('[name]-one.css')
-const extractSCSS = new ExtractTextPlugin('[name]-two.css')
+const extractCSS = new ExtractTextPlugin('[name]-one-[hash:base64:5].css')
+const extractSCSS = new ExtractTextPlugin('[name]-two-[[hash:base64:5]].css')
 let clientConfig, serverConfig
-
 
 function getExternals() {
   return fs.readdirSync(r('../node_modules'))
@@ -21,7 +20,6 @@ function getExternals() {
       return externals
     }, {})
 }
-
 
 clientConfig = {
   entry: {
@@ -78,7 +76,8 @@ clientConfig = {
     }),
     new htmlWebpackPlugin({
       template: '!!ejs-compiled-loader!' + r('../client/template.ejs'),
-      filename: 'index.html'
+      filename: 'index.html',
+      favicon: r('../favicon.ico'),
     }),
     new webpack.optimize.UglifyJsPlugin(),
     extractCSS,
