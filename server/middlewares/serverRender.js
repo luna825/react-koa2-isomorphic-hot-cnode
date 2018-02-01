@@ -4,10 +4,23 @@ import {
   renderToString
 } from 'react-dom/server'
 
-import App from '../../client/App'
+import { StaticRouter } from 'react-router-dom'
+import App from '../../client/containers/App'
 
 export default async function(ctx, next) {
-  await ctx.render('index', {
-    root: renderToString( < App / > )
-  })
+  const context ={}
+  const html = renderToString(
+    <StaticRouter location={ctx.url} context={context}>
+      <App />
+    </StaticRouter>
+  )
+  if(context.url){
+    ctx.status=301
+    ctx.redirect(context.url)
+  }else{
+    ctx.status=200
+    await ctx.render('index', {
+      root: html
+    })
+  }
 }
