@@ -25,6 +25,7 @@ export const addDevMiddleware = (app) => {
   app.use(devMiddleware(compiler, {
     noInfo: false,
     publicPath: config.output.publicPath,
+    hot: true,
     stats: {
       colors: true
     }

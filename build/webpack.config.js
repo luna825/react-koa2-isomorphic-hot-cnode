@@ -5,6 +5,10 @@ const fs = require('fs')
 const r = path => resolve(__dirname, path)
 const webpack = require('webpack')
 const htmlWebpackPlugin = require('html-webpack-plugin')
+// Create multiple instances
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const extractCSS = new ExtractTextPlugin('[name]-one.css')
+const extractSCSS = new ExtractTextPlugin('[name]-two.css')
 let clientConfig, serverConfig
 
 
@@ -35,8 +39,37 @@ clientConfig = {
       loader: 'babel-loader',
       options: {
         presets: ["env", "react", "stage-0", "stage-3"],
-        plugins: ['transform-decorators-legacy']
+        plugins: [
+          'transform-decorators-legacy', ['import', [{
+            "libraryName": "antd",
+            "style": 'css',
+            "libraryDirectory": "es",
+          }]],
+        ]
       }
+    }, {
+      test: /\.css$/,
+      use: extractCSS.extract(['css-loader'])
+    }, {
+      test: /\.scss$/,
+      use: extractSCSS.extract({
+        fallback: 'style-loader',
+        use: [{
+            loader: 'css-loader',
+            options: {
+              module: true,
+              localIdentName: '[name]__[local]__[hash:base64:5]'
+            }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: [require('autoprefixer')]
+            }
+          },
+          'sass-loader'
+        ]
+      })
     }]
   },
   plugins: [
@@ -47,7 +80,9 @@ clientConfig = {
       template: '!!ejs-compiled-loader!' + r('../client/template.ejs'),
       filename: 'index.html'
     }),
-    new webpack.optimize.UglifyJsPlugin()
+    new webpack.optimize.UglifyJsPlugin(),
+    extractCSS,
+    extractSCSS
   ]
 }
 
@@ -79,6 +114,18 @@ serverConfig = {
         ],
         plugins: ['transform-decorators-legacy']
       }
+    }, {
+      test: /\.scss$/,
+      use: [{
+        loader: 'css-loader/locals',
+        options: {
+          module: true,
+          localIdentName: '[name]__[local]__[hash:base64:5]'
+        }
+      }]
+    }, {
+      test: /\.css$/,
+      use: ['style-loader', 'css-loader']
     }]
   },
   externals: getExternals(),

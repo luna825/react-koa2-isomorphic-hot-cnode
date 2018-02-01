@@ -1,4 +1,6 @@
-const {resolve} = require('path')
+const {
+  resolve
+} = require('path')
 const r = path => resolve(__dirname, path)
 
 const webpack = require('webpack')
@@ -6,8 +8,8 @@ const webpack = require('webpack')
 module.exports = {
   devtool: 'eval-source-map',
   entry: [
+    'webpack-hot-middleware/client?reload=true',
     "react-hot-loader/patch",
-    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
     r('../client/client.js')
   ],
   output: {
@@ -15,12 +17,36 @@ module.exports = {
     path: r('../public'),
     publicPath: '/public/'
   },
-  module:{
-    rules:[
-      {
+  module: {
+    rules: [{
         test: /\.js$/,
         include: [r('../client')],
+        exclude: /node_modules/,
         loader: 'babel-loader',
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              module: true,
+              localIdentName: '[name]__[local]__[hash:base64:5]'
+            }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins:[require('autoprefixer')]
+            }
+          },
+          'sass-loader'
+        ]
       }
     ]
   },
