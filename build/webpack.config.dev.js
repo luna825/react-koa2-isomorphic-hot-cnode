@@ -55,13 +55,20 @@ module.exports = {
     compress: true,
     hot: true,
     historyApiFallback: true,
-    publicPath: '/public/'
+    publicPath: '/public/',
+    proxy:{
+      '/api/v1':{
+        target: 'http://cnodejs.org',
+        changeOrigin: true
+      }
+    }
   },
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
-      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV)
+      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
+      __CLIENT__: true
     })
   ]
 }

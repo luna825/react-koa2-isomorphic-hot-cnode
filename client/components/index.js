@@ -1,1 +1,1 @@
-export Navbar from './Navbar/Navbar'
+export CheckedTags from './CheckedTags/CheckedTags'

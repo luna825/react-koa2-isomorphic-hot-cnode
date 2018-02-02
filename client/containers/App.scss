@@ -1,0 +1,16 @@
+:global(#root){
+  height: 100%;
+}
+.app {
+  height: 100%;
+  .header {
+    .logo{
+      color: #fff;
+      font-size: 20px;
+    }
+  }
+  .content {
+    padding: 20px 50px;
+    background-color: #e1e1e1;
+  }
+}

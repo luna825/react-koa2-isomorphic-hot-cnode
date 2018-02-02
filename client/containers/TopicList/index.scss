@@ -1,5 +1,29 @@
-.topiclist {
-  .title {
-    color: red;
+$phone: "(max-width: 768px)";
+
+.topics {
+  .list {
+    overflow: hidden;
+    line-height: 32px;
+    white-space: nowrap;
+    div {
+      padding: 0 5px;
+      text-align: center;
+    }
+    .replyCount {
+      width: 70px;
+      height: 29px;
+      font-size: 12px;
+      @media #{$phone} {
+        display: none;
+      }
+    }
+    .lastTime{
+      width: 150px;
+    }
+    .title {
+      flex-grow: 1;
+      text-align: left;
+      text-overflow:ellipsis;
+    }
   }
 }
