@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:js": "cross-env NODE_ENV=production webpack --config build/webpack.config.js",
     "dev": "cross-env NODE_ENV=development nodemon -w server/ --exec node start.js",
+    "dev:server":"cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.dev.js",
     "clean": "rimraf dist",
     "build": "yarn clean && yarn build:js",
     "start": "node dist/server.js"
@@ -42,7 +43,8 @@
     "sass-loader": "^6.0.6",
     "style-loader": "^0.20.1",
     "url-loader": "^0.6.2",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.11.1"
   },
   "dependencies": {
     "antd": "^3.1.6",

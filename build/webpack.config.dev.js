@@ -8,7 +8,7 @@ const webpack = require('webpack')
 module.exports = {
   devtool: 'eval-source-map',
   entry: [
-    'webpack-hot-middleware/client?reload=true',
+    // 'webpack-hot-middleware/client?reload=true',
     "react-hot-loader/patch",
     r('../client/client.js')
   ],
@@ -49,6 +49,13 @@ module.exports = {
         ]
       }
     ]
+  },
+  devServer:{
+    contentBase: r('../public'),
+    compress: true,
+    hot: true,
+    historyApiFallback: true,
+    publicPath: '/public/'
   },
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),

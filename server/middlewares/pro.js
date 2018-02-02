@@ -12,7 +12,7 @@ export const addbody = (app) => {
 
 //ejs 模版
 export const addViews = (app) => {
-  app.use(views(r('../../dist/public'), {
+  app.use(views(r('../../dist'), {
     map: {
       html: 'ejs'
     }
@@ -22,7 +22,7 @@ export const addViews = (app) => {
 //静态资源服务器
 export const addStaticServer = (app) => {
   app.use(staticServer({
-    rootDir: r('../../dist/public'),
+    rootDir: r('../../dist'),
     rootPath:'/public'
   }))
 }

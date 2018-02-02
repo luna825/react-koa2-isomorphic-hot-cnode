@@ -27,7 +27,7 @@ clientConfig = {
   },
   output: {
     filename: '[name].[hash].js',
-    path: r('../dist/public'),
+    path: r('../dist/'),
     publicPath: '/public/'
   },
   module: {
