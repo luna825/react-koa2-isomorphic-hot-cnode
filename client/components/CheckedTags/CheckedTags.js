@@ -20,7 +20,7 @@ class CheckedTags extends React.Component {
   //地址跳转和设置相应的tab
   handleOnClick = (value) => {
     this.props.history.push({
-      pathname: '/list',
+      pathname: '/index',
       search: `?tab=${value}`
     })
     this.setState({

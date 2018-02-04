@@ -7,7 +7,7 @@ require('babel-core/register')({
       "style": "css"
     }]
   ],
-  "ignore": /node_modules\/(?!antd)/
+  "ignore": /node_modules\/(?!antd|rc-)/
 })
 require('babel-polyfill')
 
@@ -22,5 +22,6 @@ require('css-modules-require-hook')({
     camelCase: true,
     generateScopedName: '[name]__[local]__[hash:base64:5]'
 })
-
+//全局变量
+global.__CLIENT__ = false
 require('./server')

@@ -70,9 +70,14 @@ clientConfig = {
       })
     }]
   },
+  resolve: {
+    modules: ['node_modules', r('../client')],
+    extensions: [".js", ".json", ".jsx", ".css"],
+  },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      __CLIENT__: true
     }),
     new htmlWebpackPlugin({
       template: '!!ejs-compiled-loader!' + r('../client/template.ejs'),
@@ -127,10 +132,15 @@ serverConfig = {
       use: ['style-loader', 'css-loader']
     }]
   },
+  resolve: {
+    modules: ['node_modules', r('../client'), r('../server')],
+    extensions: [".js", ".json", ".jsx", ".css"],
+  },
   externals: getExternals(),
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      __CLIENT__: false
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
   ]

@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-const baseUrl = __CLIENT__ ? '' : 'https://cnodejs.org'
+const baseUrl = __CLIENT__ ? '' : 'http://cnodejs.org'
+
 const queryString = (url, json) => {
   const str = Object.keys(json).reduce((result, key) => {
     result += `${key}=${json[key]}&`

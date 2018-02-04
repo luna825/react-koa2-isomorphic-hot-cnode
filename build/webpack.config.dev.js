@@ -50,6 +50,10 @@ module.exports = {
       }
     ]
   },
+  resolve: {
+    modules: ['node_modules', 'client'],
+    extensions: [".js", ".json", ".jsx", ".css"],
+  },
   devServer:{
     contentBase: r('../public'),
     compress: true,

@@ -1,10 +1,12 @@
-$phone: "(max-width: 768px)";
+@import '../../style/variable.scss';
 
 .topics {
   .list {
-    overflow: hidden;
     line-height: 32px;
     white-space: nowrap;
+    &:hover {
+      background-color: $grey-100;
+    }
     div {
       padding: 0 5px;
       text-align: center;
@@ -18,12 +20,21 @@ $phone: "(max-width: 768px)";
       }
     }
     .lastTime{
-      width: 150px;
+      width: 100px;
+      font-size: 12px;
+      text-align: right;
     }
     .title {
       flex-grow: 1;
       text-align: left;
-      text-overflow:ellipsis;
+      text-overflow: ellipsis;
+      width: 0;
+      overflow: hidden;
+      color: black;
+      font-size: 16px;
+      &:hover{
+        text-decoration: underline;
+      }
     }
   }
 }

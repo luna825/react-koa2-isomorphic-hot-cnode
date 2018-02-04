@@ -9,9 +9,10 @@ import {Provider} from 'react-redux'
 import createWithMiddleware from './redux/create'
 //app应用
 import App from './containers/App'
+import './style/colors.css'
 
 const store = createWithMiddleware(window.REDUX_STATE)
-const nodeRender = process.env.NODE_ENV === "development" ? render : hydrate
+const nodeRender = false ? render : hydrate
 const root = document.getElementById('root')
 const appRender = Component =>{
   nodeRender(

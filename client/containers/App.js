@@ -12,14 +12,13 @@ export default class App extends Component {
       <Header className={style.header}>
         <Row type='flex' justify='space-between'>
           <Col>
-            <div className={style.logo}>M-node</div>
+            <Link to='/'><div className={style.logo}>M-node</div></Link>
           </Col>
           <Col>
             <Menu
               mode="horizontal"
               style={{lineHeight: '64px'}}
               theme='dark'>
-                <Menu.Item style={{backgroundColor:'#001529'}} key='home'>Home</Menu.Item>
                 <Menu.Item style={{backgroundColor:'#001529'}} key='login'>Login</Menu.Item>
             </Menu>
           </Col>

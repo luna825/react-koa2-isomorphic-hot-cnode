@@ -1,9 +1,20 @@
 {
   "env": {
     "development": {
-      "presets": ["env", "react", "stage-0", "stage-3"],
+      "presets": [
+        ["env", {
+          "targets": {
+            "browsers": ["last 2 versions", "safari >= 7"]
+          }
+        }], "react", "stage-0", "stage-3"
+      ],
       "plugins": [
-        "react-hot-loader/babel",
+        "react-hot-loader/babel", ["transform-runtime", {
+          "helpers": false,
+          "polyfill": false,
+          "regenerator": true,
+          "moduleName": "babel-runtime"
+        }],
         "transform-decorators-legacy", ["import", {
           "libraryName": "antd",
           "libraryDirectory": "es",

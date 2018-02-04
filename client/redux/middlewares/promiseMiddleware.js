@@ -14,6 +14,8 @@ export default function promiseMiddeware(){
         console.log('MIDDLEWARE ERROR:', error)
         next({...ret, error, type:FAILED})
       })
+
+      return promise
     }
   }
 }
