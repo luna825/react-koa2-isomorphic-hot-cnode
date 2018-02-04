@@ -24,4 +24,5 @@ require('css-modules-require-hook')({
 })
 //全局变量
 global.__CLIENT__ = false
+global.__SSR__ = true
 require('./server')

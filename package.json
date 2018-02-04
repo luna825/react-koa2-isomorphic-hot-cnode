@@ -5,8 +5,8 @@
   "license": "MIT",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:js": "cross-env NODE_ENV=production webpack --config build/webpack.config.js",
-    "dev": "cross-env NODE_ENV=development nodemon -w server/ --exec node start.js",
+    "build:js": "cross-env NODE_ENV=production SSR=true webpack --config build/webpack.config.js",
+    "dev": "cross-env NODE_ENV=development SSR=true nodemon -w server/ --exec node start.js",
     "dev:server": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.dev.js",
     "clean": "rimraf dist",
     "build": "yarn clean && yarn build:js",

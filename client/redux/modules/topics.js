@@ -24,14 +24,12 @@ const initialState = {
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case LOAD:
-      console.log(LOAD)
       return {
         ...state,
         loading: true
       }
     case LOAD_SUCCESS:
       action.pageInfo.isMore = action.result.data.length === action.pageInfo.limit
-      console.log(LOAD_SUCCESS)
       return {
         ...state,
         loading: false,
@@ -63,8 +61,14 @@ export function load(tab='all', add=false){
       const resp = await get('/topics', pageInfo)
       dispatch({type: LOAD_SUCCESS, pageInfo, add, result: resp})
     }catch(err){
-      console.log(err.response)
-      dispatch({type: LOAD_FAILED, error: err.response.data.msg})
+      let msg
+      if(err.response){
+        msg = err.response.data.msg
+      }else {
+        console.log(err)
+        msg = '未知错误'
+      }
+      dispatch({type: LOAD_FAILED, error: msg})
     }
   }
 }

@@ -12,7 +12,6 @@ import {Provider} from 'react-redux'
 import createWithMiddleware from '../../client/redux/create'
 import App from '../../client/containers/App'
 
-
 export default async function(ctx, next) {
 
   const store = createWithMiddleware({})

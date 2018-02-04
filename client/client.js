@@ -12,7 +12,7 @@ import App from './containers/App'
 import './style/colors.css'
 
 const store = createWithMiddleware(window.REDUX_STATE)
-const nodeRender = false ? render : hydrate
+const nodeRender = __SSR__ ? hydrate : render
 const root = document.getElementById('root')
 const appRender = Component =>{
   nodeRender(
