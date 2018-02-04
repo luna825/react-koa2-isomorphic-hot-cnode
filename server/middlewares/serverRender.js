@@ -14,7 +14,7 @@ import App from '../../client/containers/App'
 
 
 export default async function(ctx, next) {
-  console.log('server')
+
   const store = createWithMiddleware({})
   const context ={}
   const serverApp = ()=>
@@ -23,10 +23,9 @@ export default async function(ctx, next) {
           <App />
         </Provider>
       </StaticRouter>)
-      
+
   await asyncBootstrapper(serverApp())
 
-  console.log(store.getState().topics)
   const html = renderToString(
     serverApp()
   )

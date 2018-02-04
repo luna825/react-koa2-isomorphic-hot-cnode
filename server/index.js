@@ -19,6 +19,7 @@ export default class Server {
     }else{
       this.useMiddlware(this.app)(require('./middlewares/pro'))
     }
+    this.useMiddlware(this.app)(require('./middlewares/proxy'))
   }
   //引用中间件
   useMiddlware(app) {
