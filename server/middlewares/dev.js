@@ -7,6 +7,7 @@ import {
   hotMiddleware
 } from 'koa-webpack-middleware'
 import views from 'koa-views'
+import koaBody from 'koa-bodyparser'
 
 const r = path => resolve(__dirname, path)
 const config = require('../../build/webpack.config.dev')
@@ -36,4 +37,8 @@ export const addDevMiddleware = (app) => {
 //热替换中间件
 export const addHotMiddleware = (app) => {
   app.use(hotMiddleware(compiler))
+}
+
+export const addbody = (app) => {
+  app.use(koaBody())
 }

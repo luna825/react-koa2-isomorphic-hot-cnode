@@ -58,13 +58,7 @@ export default class TopicList extends Component {
   }
   //数据异步获取
   asyncBootstrap(){
-    // return new Promise((resolve, reject)=>{
-    //   // this.props.loadTopics(this.fetchTopic(this.props.location).tab)
-    //   resolve(()=>this.props.loadTopics(this.fetchTopic(this.props.location).tab))
-    // })
-    // return Promise.resolve(this.props.loadTopics(this.fetchTopic(this.props.location).tab));
     return this.props.loadTopics(this.fetchTopic(this.props.location).tab)
-    // return Promise.resolve(this.props.loadTopics(this.fetchTopic(this.props.location).tab));
   }
   //翻页
   onLoadMore = ()=>{
@@ -97,7 +91,7 @@ export default class TopicList extends Component {
       >
         <List
           loading={topics.loading}
-          dataSource={topics.loaded && topics.data.data}
+          dataSource={topics.data.success && topics.data.data}
           itemLayout="horizontal"
           className={style.topics}
           renderItem={item=>(

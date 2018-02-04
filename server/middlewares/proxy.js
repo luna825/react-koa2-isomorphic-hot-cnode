@@ -7,7 +7,7 @@ const router = new Router();
 
 export const addRouter = (app) => {
 
-  router.all('/api/v1/:category', async (ctx, next) => {
+  router.all('/api/v1/*', async (ctx, next) => {
     const path = ctx.path
     const user = {}
     const needAccessToken = ctx.query.needAccessToken

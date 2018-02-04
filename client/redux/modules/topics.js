@@ -45,7 +45,6 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loading: false,
         loaded: false,
-        data: {},
         error: action.error
       }
     default:
@@ -54,26 +53,18 @@ export default function reducer(state = initialState, action = {}) {
 }
 
 
-export function load(tab='all', add = false){
+export function load(tab='all', add=false){
   return async (dispatch, getState) => {
-    let pageInfo =  getState().topics.pageInfo
-    //切换标签时页面信息从0开始
-    pageInfo = tab === pageInfo.tab ? pageInfo : {tab, nextPage: 0, limit: 5}
-    await dispatch({
-      types: [LOAD, LOAD_SUCCESS, LOAD_FAILED],
-      promise: get('/topics', {...pageInfo, tab}),
-      add,
-      pageInfo
-    })
+    try{
+      let pageInfo =  getState().topics.pageInfo
+      //切换标签时页面信息从0开始
+      pageInfo = tab === pageInfo.tab ? pageInfo : {tab, nextPage: 0, limit: 5}
+      dispatch({type: LOAD})
+      const resp = await get('/topics', pageInfo)
+      dispatch({type: LOAD_SUCCESS, pageInfo, add, result: resp})
+    }catch(err){
+      console.log(err.response)
+      dispatch({type: LOAD_FAILED, error: err.response.data.msg})
+    }
   }
 }
-
-// export function load(tab='all', add=false) {
-//   return async (dispatch, getState) => {
-//     let pageInfo =  getState().topics.pageInfo
-//     pageInfo = tab === pageInfo.tab ? pageInfo : {tab, nextPage: 0, limit: 40}
-//     dispatch({ type: LOAD })
-//     const resp = await get('/topics', pageInfo)
-//     dispatch({ type: LOAD_SUCCESS, pageInfo, add, result: resp.data})
-//   }
-// }

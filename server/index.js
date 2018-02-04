@@ -9,21 +9,28 @@ const r = path => resolve(__dirname, path)
 const host = process.env.HOST || 'localhost'
 const port = process.env.PORT || 8500
 const isDev = process.env.NODE_ENV === 'development'
+const commo = isDev ? 'dev': 'pro'
+const MIDDLEWARES = ['error', commo,'proxy']
 //服务器类
 export default class Server {
   constructor() {
     this.app = new Koa()
+    this.useMiddlware(this.app)(MIDDLEWARES)
     //./middlewares 为中间件文件夹
-    if(isDev){
-      this.useMiddlware(this.app)(require('./middlewares/dev'))
-    }else{
-      this.useMiddlware(this.app)(require('./middlewares/pro'))
-    }
-    this.useMiddlware(this.app)(require('./middlewares/proxy'))
+    // if(isDev){
+    //   this.useMiddlware(this.app)(require('./middlewares/dev'))
+    // }else{
+    //   this.useMiddlware(this.app)(require('./middlewares/pro'))
+    // }
+    // this.useMiddlware(this.app)(require('./middlewares/proxy'))
   }
   //引用中间件
   useMiddlware(app) {
-    return R.map(i => i(app))
+    return R.map(R.compose(
+      R.map(i => i(app)),
+      require,
+      i => `${r('./middlewares')}/${i}`
+    ))
   }
   //服务启动
   start() {
