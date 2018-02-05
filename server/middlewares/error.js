@@ -4,13 +4,10 @@ export const adderr = (app) => {
       await next()
     }catch(e){
       if(e.response){
+        console.log(e.response.data)
         let status = e.response.status || 500
-        let msg = e.response.statusText || '服务器错误'
         ctx.status = status
-        ctx.body = {
-          success:false,
-          msg
-        }
+        ctx.body = e.response.data
       }else{
         ctx.status = 500
         ctx.body = {

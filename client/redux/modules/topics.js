@@ -63,7 +63,7 @@ export function load(tab='all', add=false){
     }catch(err){
       let msg
       if(err.response){
-        msg = err.response.data.msg
+        msg = err.response.data.error_msg
       }else {
         console.log(err)
         msg = '未知错误'

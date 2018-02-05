@@ -6,7 +6,7 @@ const r = path => resolve(__dirname, path)
 const webpack = require('webpack')
 
 module.exports = {
-  devtool: 'eval-source-map',
+  devtool: 'eval',
   entry: [
     "react-hot-loader/patch",
     r('../client/client.js')
