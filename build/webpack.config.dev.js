@@ -62,7 +62,12 @@ module.exports = {
     proxy:{
       '/api/v1':{
         target: 'http://cnodejs.org',
-        changeOrigin: true
+        changeOrigin: true //跨域
+      },
+      '/api/login': {
+        target: 'http://cnodejs.org',
+        changeOrigin: true,
+        pathRewrite: {'^/login' : '/v1/accesstoken'}
       }
     }
   },

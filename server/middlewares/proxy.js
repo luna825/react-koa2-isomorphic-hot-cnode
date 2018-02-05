@@ -7,11 +7,13 @@ const router = new Router();
 
 export const addRouter = (app) => {
 
-  router.post('/api/v1/accesstoken', async (ctx, next) => {
-    const path = ctx.path
-    const resp = await axios.post(`${baseUrl}${path}`, {
+  router.post('/api/login', async (ctx, next) => {
+    console.log(`${baseUrl}/api/v1/accesstoken`)
+    const resp = await axios.post(`${baseUrl}/api/v1/accesstoken`, {
       accesstoken: ctx.request.body.accesstoken
     })
+
+    ctx.session.user = {...resp.data, accessToken:ctx.request.body.accesstoken}
 
     ctx.status = resp.status
     ctx.body = resp.data
@@ -20,26 +22,27 @@ export const addRouter = (app) => {
 
   router.all('/api/v1/*', async (ctx, next) => {
     const path = ctx.path
-    const user = {}
+    const user = ctx.session.user || {}
     const needAccessToken = ctx.query.needAccessToken
 
     if (needAccessToken && !user.accessToken) {
       ctx.status = 401;
-      return ctx.body = {
+      ctx.body = {
         success: false,
-        msg: 'need login'
+        error_msg: 'need login'
       }
+      next()
     }
     const query = Object.assign({}, ctx.query, {
       accesstoken: (needAccessToken && ctx.method === 'GET') ? user.accessToken : ''
     })
-
+    
     const resp = await axios(`${baseUrl}${path}`, {
       method: ctx.method,
       params: query,
-      data: Object.assign({}, ctx.request.body, {
+      data: querystring.stringify(Object.assign({}, ctx.request.body, {
         accesstoken: (needAccessToken && ctx.method === 'POST') ? user.accessToken : ''
-      }),
+      })),
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }

@@ -3,8 +3,8 @@ export const adderr = (app) => {
     try{
       await next()
     }catch(e){
-      if(e.response){
-        console.log(e.response.data)
+      console.log(e)
+      if(e.response && typeof e.response.data === 'object'){
         let status = e.response.status || 500
         ctx.status = status
         ctx.body = e.response.data
@@ -12,7 +12,7 @@ export const adderr = (app) => {
         ctx.status = 500
         ctx.body = {
           success: false,
-          msg: '未知错误'
+          error_msg: '未知错误'
         }
       }
     }

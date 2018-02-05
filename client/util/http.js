@@ -12,7 +12,7 @@ const queryString = (url, json) => {
 
 const get = (url, params) => {
   return new Promise((resolve, reject) => {
-    axios.get(queryString(`${baseUrl}/api/v1${url}`, params))
+    axios.get(queryString(`${baseUrl}/api${url}`, params))
       .then(resp => {
         resolve(resp.data)
       }).catch(reject)
@@ -21,7 +21,7 @@ const get = (url, params) => {
 
 const post = (url, params) => {
   return new Promise((resolve, reject) => {
-    axios.post(`${baseUrl}/api/v1${url}`, params)
+    axios.post(`${baseUrl}/api${url}`, params)
       .then(resp => {
         resolve(resp.data)
       }).catch(reject)

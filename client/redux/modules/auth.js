@@ -42,20 +42,21 @@ export function login(token){
   return async (dispatch, getState) =>{
     try{
       dispatch({ type: LOAD })
-      const resp = await post('/accesstoken', {
+      const resp = await post('/login', {
         accesstoken: token
       })
       console.log(resp)
       dispatch({type: LOAD_SUCCESS, result: resp})
     }catch(err){
-      let msg
+      let error_msg
+      console.log(err.response)
       if(err.response){
-        msg = err.response.data.error_msg
+        error_msg = err.response.data.error_msg
       }else{
-        msg = '未知错误'
+        error_msg = '未知错误'
       }
-      dispatch({type:LOAD_FAILED, error: msg})
-      return msg
+      dispatch({type:LOAD_FAILED, error: error_msg})
+      return error_msg
     }
   }
 }

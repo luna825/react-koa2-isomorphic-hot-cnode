@@ -58,7 +58,7 @@ export function load(tab='all', add=false){
       //切换标签时页面信息从0开始
       pageInfo = tab === pageInfo.tab ? pageInfo : {tab, nextPage: 0, limit: 5}
       dispatch({type: LOAD})
-      const resp = await get('/topics', pageInfo)
+      const resp = await get('/v1/topics', pageInfo)
       dispatch({type: LOAD_SUCCESS, pageInfo, add, result: resp})
     }catch(err){
       let msg
