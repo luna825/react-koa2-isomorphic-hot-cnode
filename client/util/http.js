@@ -19,6 +19,16 @@ const get = (url, params) => {
   })
 }
 
+const post = (url, params) => {
+  return new Promise((resolve, reject) => {
+    axios.post(`${baseUrl}/api/v1${url}`, params)
+      .then(resp => {
+        resolve(resp.data)
+      }).catch(reject)
+  })
+}
+
 export {
-  get
+  get,
+  post
 }

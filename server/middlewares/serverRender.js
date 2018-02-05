@@ -24,7 +24,7 @@ export default async function(ctx, next) {
       </StaticRouter>)
 
   await asyncBootstrapper(serverApp())
-  console.log(store.getState().topics)
+  
   const html = renderToString(
     serverApp()
   )

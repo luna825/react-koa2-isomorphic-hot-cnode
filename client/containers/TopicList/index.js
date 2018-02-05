@@ -35,8 +35,10 @@ export default class TopicList extends Component {
   }
   /*-----------------------react周期函数 start--------------------------*/
   componentDidMount() {
-    if(!this.props.topics.loaded){
-      this.props.loadTopics(this.fetchTopic(this.props.location).tab)
+    const { topics, loadTopics } = this.props
+    //服务端取得了数据则不再loadTopics or 从其他页面跳转时都取得数据
+    if(!topics.loaded || topics.pageInfo.tab !== this.fetchTopic(this.props.location).tab){
+      loadTopics(this.fetchTopic(this.props.location).tab)
     }
   }
   //地址发生变化时重新取得数据

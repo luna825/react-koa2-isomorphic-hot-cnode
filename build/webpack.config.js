@@ -77,6 +77,7 @@ clientConfig = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      __SSR__: JSON.stringify(process.env.SSR) || false,
       __CLIENT__: true
     }),
     new htmlWebpackPlugin({
@@ -140,6 +141,7 @@ serverConfig = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      __SSR__: JSON.stringify(process.env.SSR) || false,
       __CLIENT__: false
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),

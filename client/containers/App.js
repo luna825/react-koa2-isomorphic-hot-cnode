@@ -19,7 +19,9 @@ export default class App extends Component {
               mode="horizontal"
               style={{lineHeight: '64px'}}
               theme='dark'>
-                <Menu.Item style={{backgroundColor:'#001529'}} key='login'>Login</Menu.Item>
+                <Menu.Item style={{backgroundColor:'#001529'}} key='login'>
+                  <Link to='/login'>Login</Link>
+                </Menu.Item>
             </Menu>
           </Col>
         </Row>
