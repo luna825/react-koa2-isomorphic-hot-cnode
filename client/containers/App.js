@@ -1,12 +1,17 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import Routes from '../config/router'
-
+import { connect } from 'react-redux'
 import {Layout, Row, Col, Menu} from 'antd'
 import style from './App.scss'
 const {Header, Content, Footer} = Layout;
 
+@connect(state => ({auth: state.auth}))
 export default class App extends Component {
+
+  constructor(props){
+    super(props)
+  }
   render() {
     return (<Layout className={style.app}>
       <Header className={style.header}>

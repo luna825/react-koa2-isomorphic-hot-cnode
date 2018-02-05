@@ -34,7 +34,7 @@ export default class Login extends React.Component {
         login(token).then(result => {
           if(result){
             setFields({token:{value:values.token, errors:[new Error(result)]}})
-          }else if(auth.isLogin){
+          }else{
             const { from } = this.props.location.state || { from: { pathname: '/' } }
             history.push(from)
           }

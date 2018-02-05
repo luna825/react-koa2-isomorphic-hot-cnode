@@ -3,7 +3,7 @@ import {render, hydrate} from 'react-dom'
 //hot replace
 import { AppContainer } from 'react-hot-loader'
 //路由采用browserRouter
-import {BrowserRouter as Router } from 'react-router-dom'
+import {BrowserRouter as Router, Route } from 'react-router-dom'
 //redux配置
 import {Provider} from 'react-redux'
 import createWithMiddleware from './redux/create'
@@ -19,7 +19,7 @@ const appRender = Component =>{
     <AppContainer>
       <Provider store={store}>
         <Router>
-          <Component />
+          <Route component={Component} />
         </Router>
       </Provider>
     </AppContainer>,
